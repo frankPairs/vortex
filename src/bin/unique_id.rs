@@ -21,16 +21,16 @@ impl Node<UniqueIdPayload> for UniqueIdNode {
 
     fn handle(
         &mut self,
-        message: Message<UniqueIdPayload>,
-        msg_id: usize,
+        req: Message<UniqueIdPayload>,
+        res_msg_id: usize,
     ) -> Option<Message<UniqueIdPayload>> {
-        let payload = message.body.payload.clone();
+        let payload = req.body.payload.clone();
 
         match payload {
-            UniqueIdPayload::Generate => Some(message.build_reply(
+            UniqueIdPayload::Generate => Some(req.build_reply(
                 self.id.clone(),
                 UniqueIdPayload::GenerateOk { id: Ulid::new() },
-                msg_id,
+                res_msg_id,
             )),
             UniqueIdPayload::GenerateOk { id } => None,
         }

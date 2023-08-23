@@ -20,14 +20,14 @@ impl Node<EchoPayload> for EchoNode {
 
     fn handle(
         &mut self,
-        message: Message<EchoPayload>,
-        msg_id: usize,
+        req: Message<EchoPayload>,
+        res_msg_id: usize,
     ) -> Option<Message<EchoPayload>> {
-        let payload = message.body.payload.clone();
+        let payload = req.body.payload.clone();
 
         match payload {
             EchoPayload::Echo { echo } => {
-                Some(message.build_reply(self.id.clone(), EchoPayload::EchoOk { echo }, msg_id))
+                Some(req.build_reply(self.id.clone(), EchoPayload::EchoOk { echo }, res_msg_id))
             }
             EchoPayload::EchoOk { echo } => None,
         }

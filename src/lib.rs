@@ -55,7 +55,7 @@ where
     Self: Sized,
 {
     fn init(id: String) -> Self;
-    fn handle(&mut self, msg: Message<P>, msg_id: usize) -> Option<Message<P>>;
+    fn handle(&mut self, req: Message<P>, res_msg_id: usize) -> Option<Message<P>>;
 }
 
 pub struct NodeServer {
